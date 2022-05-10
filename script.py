@@ -7,11 +7,15 @@ def get_data():
     counter = 0
     arr = os.listdir("./CSV/")
     data = []
+    header = ""
     for el in arr:
         with open("./CSV/"+el, "r", encoding="windows-1250") as file:
             csvreader = csv.reader(file, delimiter=";")
             for row in csvreader:
-                data.append(row)
+                if header == "":
+                    header = row
+                if row != header:
+                    data.append(row)
         counter += 1
         if(counter % 5000 == 0):
             print("...")
